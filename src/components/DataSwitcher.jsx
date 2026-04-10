@@ -1,15 +1,15 @@
 import React from 'react';
-import { useExcelData } from '../hooks/useExcelData';
-import { FileSpreadsheet, Database, RefreshCw, AlertCircle } from 'lucide-react';
+import { useApiData } from '../hooks/useApiData';
+import { Database, RefreshCw, AlertCircle, Server } from 'lucide-react';
 
 const DataSwitcher = () => {
   const { 
     loading, 
     error, 
-    useExcelData: isUsingExcelData, 
-    loadFromExcel, 
-    useMockData 
-  } = useExcelData();
+    useApiData: isUsingApiData, 
+    loadFromApi, 
+    refreshData 
+  } = useApiData();
 
   return (
     <div className="bg-white rounded-lg shadow p-4 mb-6">
@@ -19,22 +19,10 @@ const DataSwitcher = () => {
           
           <div className="flex items-center space-x-2">
             <button
-              onClick={useMockData}
-              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                !isUsingExcelData
-                  ? 'bg-blue-100 text-blue-700 border border-blue-300'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-300'
-              }`}
-            >
-              <Database size={16} className="mr-2" />
-              Моковые данные
-            </button>
-            
-            <button
-              onClick={loadFromExcel}
+              onClick={loadFromApi}
               disabled={loading}
               className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isUsingExcelData
+                isUsingApiData
                   ? 'bg-green-100 text-green-700 border border-green-300'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-300'
               } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -42,9 +30,9 @@ const DataSwitcher = () => {
               {loading ? (
                 <RefreshCw size={16} className="mr-2 animate-spin" />
               ) : (
-                <FileSpreadsheet size={16} className="mr-2" />
+                <Server size={16} className="mr-2" />
               )}
-              {loading ? 'Загрузка...' : 'Excel файл'}
+              {loading ? 'Loading...' : 'Database'}
             </button>
           </div>
         </div>
@@ -56,17 +44,17 @@ const DataSwitcher = () => {
           </div>
         )}
 
-        {isUsingExcelData && !loading && !error && (
+        {isUsingApiData && !loading && !error && (
           <div className="flex items-center text-green-600 text-sm">
             <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-            Данные из Excel загружены
+            Data loaded from database
           </div>
         )}
       </div>
       
-      {isUsingExcelData && !loading && !error && (
+      {isUsingApiData && !loading && !error && (
         <div className="mt-3 text-xs text-gray-500">
-          Данные загружены из файла transport_data.xlsx. Для обновления данных нажмите кнопку "Excel файл".
+          Data loaded from PostgreSQL database. Click "Database" button to refresh data.
         </div>
       )}
     </div>

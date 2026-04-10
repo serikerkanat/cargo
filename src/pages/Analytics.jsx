@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useExcelData } from '../hooks/useExcelData';
+import { useApiData } from '../hooks/useApiData';
 import { 
   TrendingUp, 
   TrendingDown,
@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 const Analytics = () => {
-  const { data, loading, error } = useExcelData();
+  const { data, loading, error } = useApiData();
   const { analytics } = data;
   const [selectedPeriod, setSelectedPeriod] = useState('month');
   const [selectedMetric, setSelectedMetric] = useState('orders');

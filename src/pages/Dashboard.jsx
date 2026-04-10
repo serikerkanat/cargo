@@ -1,5 +1,5 @@
 import React from 'react';
-import { useExcelData } from '../hooks/useExcelData';
+import { useApiData } from '../hooks/useApiData';
 import { 
   FileText, 
   TrendingUp, 
@@ -34,25 +34,25 @@ const StatCard = ({ title, value, icon: Icon, change, changeType }) => (
 );
 
 const Dashboard = () => {
-  console.log('Dashboard рендерится');
-  const { data, loading, error } = useExcelData();
+  console.log('Dashboard renders');
+  const { data, loading, error } = useApiData();
   const { analytics } = data;
 
-  // Показываем загрузчик
+  // Show loader
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-lg">Загрузка данных из Excel...</div>
+        <div className="text-lg">Loading data from database...</div>
       </div>
     );
   }
 
-  // Показываем ошибку
+  // Show error
   if (error) {
     return (
       <div className="space-y-6">
         <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
-          <h3 className="text-red-800 font-medium">Ошибка загрузки Excel</h3>
+          <h3 className="text-red-800 font-medium">Database loading error</h3>
           <p className="text-red-600 text-sm mt-1">{error}</p>
         </div>
       </div>
@@ -107,20 +107,20 @@ const Dashboard = () => {
 
       {/* Информация о данных */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">📊 Данные из Excel</h2>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Database Data</h2>
         <div className="space-y-3">
           <p className="text-gray-600">
-            <strong>Загружено заявок:</strong> {analytics?.totalOrders || 0}
+            <strong>Loaded orders:</strong> {analytics?.totalOrders || 0}
           </p>
           <p className="text-gray-600">
-            <strong>Контактов в базе:</strong> {data?.contacts?.length || 0}
+            <strong>Contacts in database:</strong> {data?.contacts?.length || 0}
           </p>
           <p className="text-gray-600">
-            <strong>Маршрутов:</strong> {data?.routes?.length || 0}
+            <strong>Routes:</strong> {data?.routes?.length || 0}
           </p>
           {analytics?.totalOrders > 0 && (
             <div className="mt-4 p-4 bg-green-50 rounded">
-              <p className="text-sm text-green-800">✅ Данные из Excel успешно загружены и отображаются</p>
+              <p className="text-sm text-green-800">Database data successfully loaded and displayed</p>
             </div>
           )}
         </div>
@@ -132,7 +132,7 @@ const Dashboard = () => {
           <div className="p-6 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900 flex items-center">
               <MapPin size={20} className="mr-2 text-blue-600" />
-              Топ маршруты из Excel
+              Top routes from database
             </h2>
           </div>
           <div className="p-6">
@@ -160,7 +160,7 @@ const Dashboard = () => {
           <div className="p-6 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900 flex items-center">
               <Truck size={20} className="mr-2 text-blue-600" />
-              Типы машин из Excel
+              Truck types from database
             </h2>
           </div>
           <div className="p-6">
