@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useExcelData } from '../hooks/useExcelData';
+import { useApiData } from '../hooks/useApiData';
 import { 
   Search, 
   MapPin, 
@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 const Routes = () => {
-  const { data, loading, error } = useExcelData();
+  const { data, loading, error } = useApiData();
   const { routes, analytics } = data;
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRoute, setSelectedRoute] = useState(null);

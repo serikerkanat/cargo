@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useExcelData } from '../hooks/useExcelData';
+import { useApiData } from '../hooks/useApiData';
 import { 
   Search, 
   Filter, 
@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const Orders = () => {
-  const { data, loading, error } = useExcelData();
+  const { data, loading, error } = useApiData();
   const { orders } = data;
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -182,7 +182,7 @@ const Orders = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <div className="flex items-center">
                       <Calendar size={16} className="mr-2 text-gray-400" />
-                      {new Date(order.date).toLocaleDateString('ru-RU')}
+                      {order.date ? new Date(order.date).toLocaleDateString('ru-RU') : 'N/A'}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -190,9 +190,9 @@ const Orders = () => {
                       <MapPin size={16} className="mr-2 text-gray-400" />
                       <div>
                         <div className="text-sm font-medium text-gray-900">
-                          {order.from} - {order.to}
+                          {order.from || 'N/A'} - {order.to || 'N/A'}
                         </div>
-                        <div className="text-xs text-gray-500">{order.truckType}</div>
+                        <div className="text-xs text-gray-500">{order.truckType || 'N/A'}</div>
                       </div>
                     </div>
                   </td>
@@ -200,8 +200,8 @@ const Orders = () => {
                     <div className="flex items-center">
                       <Truck size={16} className="mr-2 text-gray-400" />
                       <div>
-                        <div>{order.weight} т / {order.volume} м³</div>
-                        <div className="text-xs text-gray-500">{order.loadingType}</div>
+                        <div>{order.weight || 0} т / {order.volume || 0} м³</div>
+                        <div className="text-xs text-gray-500">{order.loadingType || 'N/A'}</div>
                       </div>
                     </div>
                   </td>
@@ -209,7 +209,7 @@ const Orders = () => {
                     <div className="flex items-center">
                       <DollarSign size={16} className="mr-2 text-gray-400" />
                       <span className="text-sm font-medium text-gray-900">
-                        {order.rate.toLocaleString()} {order.currency}
+                        {order.rate ? order.rate.toLocaleString() : '0'} {order.currency || 'KZT'}
                       </span>
                     </div>
                   </td>
@@ -217,8 +217,8 @@ const Orders = () => {
                     <div className="flex items-center">
                       <User size={16} className="mr-2 text-gray-400" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900">{order.contact}</div>
-                        <div className="text-xs text-gray-500">{order.company}</div>
+                        <div className="text-sm font-medium text-gray-900">{order.contact || 'N/A'}</div>
+                        <div className="text-xs text-gray-500">{order.company || 'N/A'}</div>
                       </div>
                     </div>
                   </td>
