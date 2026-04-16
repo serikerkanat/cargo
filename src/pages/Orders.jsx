@@ -276,35 +276,35 @@ const Orders = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">Маршрут</h3>
-                  <p className="text-gray-900">{selectedOrder.from} - {selectedOrder.to}</p>
+                  <p className="text-gray-900">{selectedOrder.from || 'N/A'} - {selectedOrder.to || 'N/A'}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">Дата загрузки</h3>
-                  <p className="text-gray-900">{selectedOrder.loadingDate}</p>
+                  <p className="text-gray-900">{selectedOrder.loadingDate ? new Date(selectedOrder.loadingDate).toLocaleDateString('ru-RU') : 'N/A'}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">Груз</h3>
-                  <p className="text-gray-900">{selectedOrder.weight} т / {selectedOrder.volume} м³</p>
-                  <p className="text-sm text-gray-600">{selectedOrder.cargoDescription}</p>
+                  <p className="text-gray-900">{selectedOrder.weight || 0} т / {selectedOrder.volume || 0} м³</p>
+                  <p className="text-sm text-gray-600">{selectedOrder.cargoDescription || 'N/A'}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">Тип машины</h3>
-                  <p className="text-gray-900">{selectedOrder.truckType} ({selectedOrder.loadingType})</p>
+                  <p className="text-gray-900">{selectedOrder.truckType || 'N/A'} ({selectedOrder.loadingType || 'N/A'})</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">Ставка</h3>
-                  <p className="text-gray-900">{selectedOrder.rate.toLocaleString()} {selectedOrder.currency}</p>
+                  <p className="text-gray-900">{selectedOrder.rate ? selectedOrder.rate.toLocaleString() : '0'} {selectedOrder.currency || 'KZT'}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-2">Контакт</h3>
-                  <p className="text-gray-900">{selectedOrder.contact}</p>
-                  <p className="text-sm text-gray-600">{selectedOrder.phone}</p>
-                  <p className="text-sm text-gray-600">{selectedOrder.telegram}</p>
+                  <p className="text-gray-900">{selectedOrder.contact || 'N/A'}</p>
+                  <p className="text-sm text-gray-600">{selectedOrder.phone || 'N/A'}</p>
+                  <p className="text-sm text-gray-600">{selectedOrder.telegram || 'N/A'}</p>
                 </div>
               </div>
               <div className="mt-6">
                 <h3 className="text-sm font-medium text-gray-500 mb-2">Исходный текст</h3>
-                <p className="text-gray-900 bg-gray-50 p-3 rounded">{selectedOrder.originalText}</p>
+                <p className="text-gray-900 bg-gray-50 p-3 rounded">{selectedOrder.originalText || 'N/A'}</p>
               </div>
             </div>
           </div>
